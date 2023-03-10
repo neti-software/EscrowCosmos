@@ -1,0 +1,64 @@
+syntax = "proto3";
+package escrow.escrow;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "escrow/x/escrow/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc NewEscrow(MsgNewEscrow) returns (MsgNewEscrowResponse);
+  rpc Approve(MsgApprove) returns (MsgApproveResponse);
+  rpc Deposit(MsgDeposit) returns (MsgDepositResponse);
+  rpc Confirm(MsgConfirm) returns (MsgConfirmResponse);
+  rpc Withdraw(MsgWithdraw) returns (MsgWithdrawResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgNewEscrow {
+  string creator = 1;
+  string strategy = 2;
+  string instigator = 3;
+  string instigatorWager = 4;
+  string rider = 5;
+  string riderWager = 6;
+}
+
+message MsgNewEscrowResponse {
+  string escrowIndex = 1;
+}
+
+message MsgApprove {
+  string creator = 1;
+  string escrowIndex = 2;
+}
+
+message MsgApproveResponse {
+}
+
+message MsgDeposit {
+  string creator = 1;
+  string escrowIndex = 2;
+}
+
+message MsgDepositResponse {
+}
+
+message MsgConfirm {
+  string creator = 1;
+  string escrowIndex = 2;
+  string winner = 3;
+}
+
+message MsgConfirmResponse {
+}
+
+message MsgWithdraw {
+  string creator = 1;
+  string escrowIndex = 2;
+}
+
+message MsgWithdrawResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

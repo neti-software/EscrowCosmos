@@ -1,0 +1,69 @@
+syntax = "proto3";
+package escrow.escrow;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "escrow/params.proto";
+import "escrow/system_info.proto";
+import "escrow/stored_escrow.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "escrow/x/escrow/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/escrow/escrow/params";
+  }
+  // Queries a SystemInfo by index.
+	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
+		option (google.api.http).get = "/escrow/escrow/system_info";
+	}
+// Queries a StoredEscrow by index.
+	rpc StoredEscrow(QueryGetStoredEscrowRequest) returns (QueryGetStoredEscrowResponse) {
+		option (google.api.http).get = "/escrow/escrow/stored_escrow/{index}";
+	}
+
+	// Queries a list of StoredEscrow items.
+	rpc StoredEscrowAll(QueryAllStoredEscrowRequest) returns (QueryAllStoredEscrowResponse) {
+		option (google.api.http).get = "/escrow/escrow/stored_escrow";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetSystemInfoRequest {}
+
+message QueryGetSystemInfoResponse {
+	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetStoredEscrowRequest {
+	  string index = 1;
+
+}
+
+message QueryGetStoredEscrowResponse {
+	StoredEscrow storedEscrow = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllStoredEscrowRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllStoredEscrowResponse {
+	repeated StoredEscrow storedEscrow = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

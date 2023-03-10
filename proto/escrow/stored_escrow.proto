@@ -1,0 +1,11 @@
+syntax = "proto3";
+package escrow.escrow;
+
+option go_package = "escrow/x/escrow/types";
+
+message StoredEscrow {
+  string index = 1; 
+  string escrow = 2; 
+  
+}
+
